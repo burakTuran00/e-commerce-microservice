@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CopilotDiffPersistence">
+    <option name="pendingDiffs">
+      <map>
+        <entry key="$PROJECT_DIR$/eureka-server/Dockerfile">
+          <value>
+            <PendingDiffInfo>
+              <option name="filePath" value="$PROJECT_DIR$/eureka-server/Dockerfile" />
+              <option name="originalContent" value="# Multi-stage Dockerfile for the eureka-server service&#10;# Build stage&#10;FROM maven:3.8.8-openjdk-17 AS builder&#10;WORKDIR /workspace&#10;COPY pom.xml ./&#10;COPY src ./src/&#10;RUN mvn -B -DskipTests package&#10;&#10;# Run stage&#10;FROM openjdk:17-jdk-slim&#10;WORKDIR /app&#10;COPY --from=builder /workspace/target/*.jar app.jar&#10;EXPOSE 8761&#10;ENTRYPOINT [&quot;java&quot;,&quot;-jar&quot;,&quot;/app/app.jar&quot;]&#10;" />
+              <option name="updatedContent" value="# Multi-stage Dockerfile for the eureka-server service&#10;# Build stage&#10;FROM maven:3.8.8-openjdk-17 AS builder&#10;WORKDIR /workspace&#10;COPY pom.xml ./&#10;COPY src ./src/&#10;RUN mvn -B -DskipTests package&#10;&#10;# Run stage&#10;FROM openjdk:17-jdk-slim&#10;WORKDIR /app&#10;COPY --from=builder /workspace/target/*.jar app.jar&#10;EXPOSE 8761&#10;ENTRYPOINT [&quot;java&quot;,&quot;-jar&quot;,&quot;/app/app.jar&quot;]&#10;" />
+            </PendingDiffInfo>
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/gateway/.dockerignore">
+          <value>
+            <PendingDiffInfo>
+              <option name="filePath" value="$PROJECT_DIR$/gateway/.dockerignore" />
+              <option name="originalContent" value="target&#10;.idea&#10;.vscode&#10;*.iml&#10;**/target&#10;" />
+              <option name="updatedContent" value="target&#10;.idea&#10;.vscode&#10;*.iml&#10;**/target&#10;" />
+            </PendingDiffInfo>
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/gateway/Dockerfile">
+          <value>
+            <PendingDiffInfo>
+              <option name="filePath" value="$PROJECT_DIR$/gateway/Dockerfile" />
+              <option name="originalContent" value="# Multi-stage Dockerfile for the gateway service&#10;# Build stage&#10;FROM maven:3.8.8-openjdk-17 AS builder&#10;WORKDIR /workspace&#10;# copy only what is needed to leverage build cache&#10;COPY pom.xml ./&#10;COPY src ./src/&#10;&#10;RUN mvn -B -DskipTests package&#10;&#10;# Run stage&#10;FROM openjdk:17-jdk-slim&#10;WORKDIR /app&#10;COPY --from=builder /workspace/target/*.jar app.jar&#10;EXPOSE 8080&#10;ENTRYPOINT [&quot;java&quot;,&quot;-jar&quot;,&quot;/app/app.jar&quot;]&#10;" />
+              <option name="updatedContent" value="# Multi-stage Dockerfile for the gateway service&#10;# Build stage&#10;FROM maven:3.8.8-openjdk-17 AS builder&#10;WORKDIR /workspace&#10;# copy only what is needed to leverage build cache&#10;COPY pom.xml ./&#10;COPY src ./src/&#10;&#10;RUN mvn -B -DskipTests package&#10;&#10;# Run stage&#10;FROM openjdk:17-jdk-slim&#10;WORKDIR /app&#10;COPY --from=builder /workspace/target/*.jar app.jar&#10;EXPOSE 8080&#10;ENTRYPOINT [&quot;java&quot;,&quot;-jar&quot;,&quot;/app/app.jar&quot;]&#10;" />
+            </PendingDiffInfo>
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+</project>
