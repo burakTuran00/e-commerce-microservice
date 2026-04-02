@@ -3,8 +3,8 @@ services:
     container_name: ms_pg_sql
     image: postgres
     environment:
-      POSTGRES_USER: admin
-      POSTGRES_PASSWORD: password
+      POSTGRES_USER: alibou
+      POSTGRES_PASSWORD: alibou
       PGDATA: /data/postgres
     volumes:
       - postgres:/data/postgres
@@ -45,8 +45,8 @@ services:
     volumes:
       - mongo:/data
     environment:
-      - MONGO_INITDB_ROOT_USERNAME=admin
-      - MONGO_INITDB_ROOT_PASSWORD=password
+      - MONGO_INITDB_ROOT_USERNAME=alibou
+      - MONGO_INITDB_ROOT_PASSWORD=alibou
 
   mongo-express:
     image: mongo-express
@@ -55,8 +55,8 @@ services:
     ports:
       - 8081:8081
     environment:
-      - ME_CONFIG_MONGODB_ADMINUSERNAME=admin
-      - ME_CONFIG_MONGODB_ADMINPASSWORD=password
+      - ME_CONFIG_MONGODB_ADMINUSERNAME=alibou
+      - ME_CONFIG_MONGODB_ADMINPASSWORD=alibou
       - ME_CONFIG_MONGODB_SERVER=mongodb
 
   zookeeper:
@@ -93,6 +93,18 @@ services:
     ports:
       - 1080:1080
       - 1025:1025
+
+  keycloak:
+    image: quay.io/keycloak/keycloak:24.0.2
+    container_name: keycloak
+    environment:
+      KEYCLOAK_ADMIN: admin
+      KEYCLOAK_ADMIN_PASSWORD: admin
+    command: start-dev
+    networks:
+      - microservices-net
+    ports:
+      - "9098:8080"
 
 networks:
   microservices-net:
