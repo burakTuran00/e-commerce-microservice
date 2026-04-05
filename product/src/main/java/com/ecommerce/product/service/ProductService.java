@@ -29,8 +29,10 @@ public class ProductService {
     }
 
     public @Nullable ProductResponse getProductById(Integer productId) {
+        return null;
     }
 
     public @Nullable List<ProductResponse> getAllProducts() {
+        return null;
     }
 }
