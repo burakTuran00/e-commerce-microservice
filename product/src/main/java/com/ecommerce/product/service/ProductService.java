@@ -19,7 +19,7 @@ public class ProductService {
     private final ProductRepository repository;
     private final ProductMapper mapper;
 
-    public Integer createProduct(ProductRequest productRequest) {W
+    public Integer createProduct(ProductRequest productRequest) {
         return null;
     }
 
