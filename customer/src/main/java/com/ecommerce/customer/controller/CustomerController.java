@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/api/customer")
+@RequestMapping("/api/api/customers")
 @RequiredArgsConstructor
 public class CustomerController {
     private final CustomerService customerService;
