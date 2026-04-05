@@ -1,10 +1,6 @@
 package com.ecommerce.product.entity;
 
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -19,13 +15,14 @@ import java.util.List;
 @Getter
 @Setter
 @Entity
+@Table(name = "category")
 public class Category {
 
     @Id
     @GeneratedValue
     private Integer id;
-    private String name;
     private String description;
+    private String name;
     @OneToMany(mappedBy = "category", cascade = CascadeType.REMOVE)
     private List<Product> products;
 }
