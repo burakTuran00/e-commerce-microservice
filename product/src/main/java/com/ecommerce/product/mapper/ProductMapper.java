@@ -1,9 +1,11 @@
 package com.ecommerce.product.mapper;
 
+import com.ecommerce.product.dto.ProductPurchaseResponse;
 import com.ecommerce.product.dto.ProductRequest;
 import com.ecommerce.product.dto.ProductResponse;
 import com.ecommerce.product.entity.Category;
 import com.ecommerce.product.entity.Product;
+import jakarta.validation.constraints.Positive;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -34,6 +36,16 @@ public class ProductMapper {
                 product.getCategory().getId(),
                 product.getCategory().getName(),
                 product.getCategory().getDescription()
+        );
+    }
+
+    public ProductPurchaseResponse toProductPurchaseResponse(Product product, double quantity) {
+        return new ProductPurchaseResponse(
+                product.getId(),
+                product.getName(),
+                product.getDescription(),
+                product.getPrice(),
+                quantity
         );
     }
 }
