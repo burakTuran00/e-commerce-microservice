@@ -6,6 +6,8 @@ import com.ecommerce.dto.order.OrderRequest;
 import com.ecommerce.dto.orderline.OrderLineRequest;
 import com.ecommerce.dto.product.PurchaseRequest;
 import com.ecommerce.exception.BusinessException;
+import com.ecommerce.kafka.OrderConfirmation;
+import com.ecommerce.kafka.OrderProducer;
 import com.ecommerce.mapper.OrderMapper;
 import com.ecommerce.repository.OrderRepository;
 import lombok.RequiredArgsConstructor;
@@ -21,6 +23,8 @@ public class OrderService {
     private final OrderMapper orderMapper;
     private final OrderLineService orderLineService;
 
+    private final OrderProducer orderProducer;
+
     public Integer createOrder(OrderRequest request)
     {
         //check if the customer exists
@@ -30,7 +34,7 @@ public class OrderService {
                                 ));
 
         //purchase the products
-        this.productClient.purchaseProduct(request.products());
+        var purchaseProducts = this.productClient.purchaseProduct(request.products());
 
         //persist the order in the database and return the order id
         var order = orderRepository.save(orderMapper.toOrder(request));
@@ -46,6 +50,18 @@ public class OrderService {
             );
         }
 
-        return null;
+        //todo: start payment process
+
+        // send the order confirmation email notifaction-ms (kafka)
+        orderProducer.sendOrderConfirmation(
+                new OrderConfirmation(
+                        request.reference(),
+                        request.amount(),
+                        request.paymentMethod(),
+                        customer,
+                        purchaseProducts.orElseThrow()
+                )
+        );
+        return order.getId();
     }
 }
