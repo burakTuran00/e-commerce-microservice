@@ -21,7 +21,6 @@
       <set>
         <option value="$PROJECT_DIR$/auth-service-with-keycloak/pom.xml" />
         <option value="$PROJECT_DIR$/eureka-server/pom.xml" />
-        <option value="$PROJECT_DIR$/gateway/pom.xml" />
         <option value="$PROJECT_DIR$/product-service/pom.xml" />
       </set>
     </option>
