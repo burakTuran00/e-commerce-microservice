@@ -4,10 +4,11 @@ import com.ecommerce.payment.dto.PaymentNotificationRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.kafka.core.KafkaTemplate;
-import org.springframework.kafka.support.KafkaHeaders;
 import org.springframework.messaging.Message;
 import org.springframework.messaging.support.MessageBuilder;
 import org.springframework.stereotype.Service;
+
+import static org.springframework.kafka.support.KafkaHeaders.TOPIC;
 
 @Service
 @RequiredArgsConstructor
@@ -20,7 +21,7 @@ public class NotificationProducer {
         log.info("Sending notification for payment: {}", request);
         Message<PaymentNotificationRequest> message = MessageBuilder
                 .withPayload(request)
-                .setHeader(KafkaHeaders.TOPIC, "payment-notification")
+                .setHeader(TOPIC, "payment-topic")
                 .build();
 
         kafkaTemplate.send(message);
