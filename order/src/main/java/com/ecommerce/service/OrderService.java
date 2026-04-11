@@ -1,10 +1,12 @@
 package com.ecommerce.service;
 
 import com.ecommerce.client.customer.CustomerClient;
+import com.ecommerce.client.payment.PaymentClient;
 import com.ecommerce.client.product.ProductClient;
 import com.ecommerce.dto.order.OrderRequest;
 import com.ecommerce.dto.order.OrderResponse;
 import com.ecommerce.dto.orderline.OrderLineRequest;
+import com.ecommerce.dto.payment.PaymentRequest;
 import com.ecommerce.dto.product.PurchaseRequest;
 import com.ecommerce.exception.BusinessException;
 import com.ecommerce.kafka.OrderConfirmation;
@@ -24,6 +26,7 @@ public class OrderService {
 
     private final CustomerClient customerClient;
     private final ProductClient productClient;
+    private final PaymentClient paymentClient;
     private final OrderRepository orderRepository;
     private final OrderMapper orderMapper;
     private final OrderLineService orderLineService;
@@ -56,6 +59,14 @@ public class OrderService {
         }
 
         //todo: start payment process
+        var paymentRequest = new PaymentRequest(
+                request.amount(),
+                request.paymentMethod(),
+                order.getId(),
+                request.reference(),
+                customer
+        );
+        paymentClient.requestOrderPayment(paymentRequest);
 
         // send the order confirmation email notifaction-ms (kafka)
         orderProducer.sendOrderConfirmation(
