@@ -1,6 +1,8 @@
 server:
   port: 8060
 spring:
+  application:
+    name: payment-service
   datasource:
     driver-class-name: org.postgresql.Driver
     url: jdbc:postgresql://localhost:5432/payment
@@ -22,3 +24,10 @@ spring:
 application:
   config:
     product-url: http://localhost:8222/api/v1/products
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
+  instance:
+    hostname: localhost
